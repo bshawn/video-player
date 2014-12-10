@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Video Player</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading" data-bind="text: applicationTitle"></div>
+        <div class="panel-body container">
+            <div class="row">
+                <div class="video-list col-lg-4">
+                    <div class="list-group" data-bind="foreach: videos">
+                        <a class="list-group-item" href="#" data-bind="text: name,
+                                                                       click: $parent.select.bind($parent),
+                                                                       css: { active: $parent.isSelected($data) }"></a>
+                    </div>
+                </div>
+
+                <div class="video-player col-lg-8 well text-center" data-bind="with: selectedVideo">
+                    <video width="640" height="480" controls data-bind="attr: { src: src }"></video>
+                </div>
+            </div>
+         </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
+    <script src="app/video-player.js"></script>
+</body>
+</html>
