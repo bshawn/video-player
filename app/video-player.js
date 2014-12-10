@@ -17,7 +17,7 @@ var ViewModel = (function () {
 
     ViewModel.prototype.select = function select(video) {
         this.selectedVideo(video);
-    }
+    };
 
     return ViewModel;
 }());
