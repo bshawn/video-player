@@ -9,6 +9,7 @@
     <div class="panel panel-default">
         <div class="panel-heading" data-bind="text: applicationTitle"></div>
         <div class="panel-body container">
+        <!-- ko if: videos -->
             <div class="row">
                 <div class="video-list col-lg-4">
                     <div class="list-group" data-bind="foreach: videos">
@@ -17,12 +18,14 @@
                                                                        css: { active: $parent.isSelected($data) }"></a>
                     </div>
                 </div>
-
+                <!-- if: selectedVideo -->
                 <div class="video-player col-lg-8 well text-center" data-bind="with: selectedVideo">
                     <video width="640" height="480" controls data-bind="attr: { src: src }"></video>
                 </div>
+                <!-- /ko -->
             </div>
-         </div>
+        <!-- /ko -->
+        </div>
     </div>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
