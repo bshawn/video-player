@@ -1,3 +1,9 @@
+/*global require*/
+/*global process*/
+/*global console*/
+/*global __dirname*/
+
+var path = require('path');
 var express = require('express');
 var app = express();
 
@@ -5,7 +11,7 @@ var app = express();
 require('./configure-routes')(app);
 
 // Serve static files from app and movies directories.
-app.use(express.static('../', 'app'));
+app.use(express.static(path.resolve(__dirname, '../'), 'app'));
 //app.use(express.static('../', 'videos'));
 
 // Handle 404s.

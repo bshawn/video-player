@@ -1,9 +1,15 @@
+/*jshint*/
+/*global require*/
+/*global console*/
+/*global module*/
+/*global __dirname*/
+
 var path = require('path'),
     fs = require('fs');
 
 function configureRoutes(app) {
     app.get('/', function(req, res) {
-       res.sendFile('index.html', { root: '../' });
+       res.sendFile('index.html', { root: path.resolve(__dirname, '../') });
     });
     
     app.get('/api/videos', function(req, res) {
@@ -76,13 +82,13 @@ function startVideoStream(videoId, res, range) {
     
     switch(videoId) {
         case 1:
-            filePath = path.resolve('../', 'videos/big_buck_bunny.mp4');
+            filePath = path.resolve(__dirname, '../', 'videos/big_buck_bunny.mp4');
             break;
         case 2:
-            filePath = path.resolve('../', 'videos/Die leeutemmer.mp4');
+            filePath = path.resolve(__dirname, '../', 'videos/Die leeutemmer.mp4');
             break;
         case 3:
-            filePath = path.resolve('../', 'videos/Incredible Mara Leopard Attack21.mp4');
+            filePath = path.resolve(__dirname, '../', 'videos/Incredible Mara Leopard Attack21.mp4');
             break;
         default:
             return;
@@ -98,8 +104,8 @@ function startVideoStream(videoId, res, range) {
             return;
         }
         
-        total = stats.size,
-        end = end || total - 1,
+        total = stats.size;
+        end = end || total - 1;
         chunksize = (end - start) + 1;
     
         res.writeHead(206, {

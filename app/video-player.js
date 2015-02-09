@@ -1,7 +1,9 @@
 /*jshint*/
 /*global ko*/
+/*global $*/
+/*global console*/
 
-var apiUrl = 'api/videos'
+var apiUrl = 'api/videos';
 
 var Video = (function () {
    function Video(id, name, src) {
@@ -24,7 +26,7 @@ var VideoService = (function () {
         var dfd = $.Deferred();
         
         $.get(this.url)
-            .done(getAll_done.bind(this, dfd))
+            .done(getAll_done.bind(null, this, dfd))
             .fail(console.log);
         
         return dfd.promise();
@@ -34,13 +36,13 @@ var VideoService = (function () {
         var dfd = $.Deferred();
         
         $.get(this.url + '/' + videoId)
-            .done(get_done.bind(this, dfd))
+            .done(get_done.bind(null, this, dfd))
             .fail(console.log);
         
         return dfd.promise();
     };
     
-    function getAll_done(dfd, results) {
+    function getAll_done(self, dfd, results) {
         var videos = results.map(function (video) {
             return new Video(video.id, video.name);
         });
@@ -48,7 +50,7 @@ var VideoService = (function () {
         dfd.resolve(videos);
     }
     
-    function get_done(dfd, result) {
+    function get_done(self, dfd, result) {
         dfd.resolve(new Video(result.id, result.name, result.src));
     }
     
@@ -68,7 +70,7 @@ var ViewModel = (function () {
     }
     
     ViewModel.prototype.initialize = function initialize() {
-        loadVideos.call(this);
+        loadVideos.call(null, this);
     };
 
     ViewModel.prototype.isSelected = function isSelected(video) {
@@ -79,28 +81,28 @@ var ViewModel = (function () {
     };
 
     ViewModel.prototype.select = function select(video) {
-        loadVideoDetails.call(this, video.id);
+        loadVideoDetails.call(null, this, video.id);
     };
     
-    function loadVideos() {
-        this.service.getAll()
-            .done(getAll_done.bind(this))
+    function loadVideos(self) {
+        self.service.getAll()
+            .done(getAll_done.bind(null, self))
             .fail(console.log);
     }
     
-    function getAll_done(videos) {
-        this.videos(videos);
-        this.select(this.videos()[0]);
+    function getAll_done(self, videos) {
+        self.videos(videos);
+        self.select(self.videos()[0]);
     }
     
-    function loadVideoDetails(videoId) {
-        this.service.get(videoId)
-            .done(get_done.bind(this))
+    function loadVideoDetails(self, videoId) {
+        self.service.get(videoId)
+            .done(get_done.bind(null, self))
             .fail(console.log);
     }
     
-    function get_done(video) {
-        this.selectedVideo(video);
+    function get_done(self, video) {
+        self.selectedVideo(video);
     }
 
     return ViewModel;
