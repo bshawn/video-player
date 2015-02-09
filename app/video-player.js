@@ -1,3 +1,8 @@
+/*jshint*/
+/*global ko*/
+
+var apiUrl = 'api/videos'
+
 var Video = (function () {
    function Video(id, name, src) {
        this.id = id;
@@ -9,10 +14,10 @@ var Video = (function () {
 } ());
 
 var VideoService = (function () {
-    "use strict";
+    'use strict';
     
     function VideoService () {
-        this.url = 'api/videos';
+        this.url = apiUrl;
     }
     
     VideoService.prototype.getAll = function() {
@@ -52,7 +57,7 @@ var VideoService = (function () {
 
 
 var ViewModel = (function () {
-    "use strict";
+    'use strict';
 
     function ViewModel () {
         this.service = new VideoService();
