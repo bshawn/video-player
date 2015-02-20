@@ -2,6 +2,7 @@
 /*global ko*/
 /*global $*/
 /*global console*/
+/*global toastr*/
 
 var apiUrl = 'api/videos';
 
@@ -27,7 +28,7 @@ var VideoService = (function () {
         
         $.get(this.url)
             .done(getAll_done.bind(null, this, dfd))
-            .fail(console.log);
+            .fail(dfd.reject);
         
         return dfd.promise();
     };
@@ -37,7 +38,7 @@ var VideoService = (function () {
         
         $.get(this.url + '/' + videoId)
             .done(get_done.bind(null, this, dfd))
-            .fail(console.log);
+            .fail(dfd.reject);
         
         return dfd.promise();
     };
@@ -87,7 +88,7 @@ var ViewModel = (function () {
     function loadVideos(self) {
         self.service.getAll()
             .done(getAll_done.bind(null, self))
-            .fail(console.log);
+            .fail(handleAjaxError);
     }
     
     function getAll_done(self, videos) {
@@ -98,11 +99,15 @@ var ViewModel = (function () {
     function loadVideoDetails(self, videoId) {
         self.service.get(videoId)
             .done(get_done.bind(null, self))
-            .fail(console.log);
+            .fail(handleAjaxError);
     }
     
     function get_done(self, video) {
         self.selectedVideo(video);
+    }
+    
+    function handleAjaxError(response) {
+        toastr.error(response.responseText);
     }
 
     return ViewModel;

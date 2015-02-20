@@ -1,3 +1,4 @@
+/*jshint*/
 /*global require*/
 /*global process*/
 /*global console*/
@@ -16,7 +17,7 @@ app.use(express.static(path.resolve(__dirname, '../'), 'app'));
 
 // Handle 404s.
 app.use(function(req, res, next) {
-   res.send(404, 'Unable to locate requested resource');
+   res.status(404).send('Unable to locate requested resource');
    
    // By not calling next(), we are terminating the pipeline.
 });
