@@ -58,7 +58,6 @@ var VideoService = (function () {
     return VideoService;
 } ());
 
-
 var ViewModel = (function () {
     'use strict';
 
@@ -72,39 +71,34 @@ var ViewModel = (function () {
     }
 
     ViewModel.prototype.initialize = function initialize() {
-        loadVideos.call(null, this);
+        this.socket.on('video selected', displayVideo.bind(null, this));
+        this.socket.on('play video', playVideo);
+        this.socket.on('pause video', pauseVideo);
+        this.socket.on('seek video', seekVideo);
     };
 
-    ViewModel.prototype.isSelected = function isSelected(video) {
-        if(!this.selectedVideo()) {
-            return false;
-        }
-        return video.id === this.selectedVideo().id;
-    };
-
-    ViewModel.prototype.select = function select(video) {
-        loadVideoDetails.call(null, this, video.id);
-    };
-
-    function loadVideos(self) {
-        self.service.getAll()
-            .done(getAll_done.bind(null, self))
-            .fail(handleAjaxError);
-    }
-
-    function getAll_done(self, videos) {
-        self.videos(videos);
-        self.select(self.videos()[0]);
-    }
-
-    function loadVideoDetails(self, videoId) {
-        self.service.get(videoId)
-            .done(get_done.bind(null, self))
-            .fail(handleAjaxError);
-    }
-
-    function get_done(self, video) {
+    function displayVideo(self, video) {
         self.selectedVideo(video);
+    }
+
+    function playVideo() {
+        console.log('play video');
+        getVideoTag().play();
+    }
+
+    function pauseVideo() {
+        console.log('pause video');
+        getVideoTag().pause();
+    }
+
+    function seekVideo(args) {
+        console.log('seek video');
+        console.log(args);
+        getVideoTag().currentTime += args.delta;
+    }
+
+    function getVideoTag() {
+        return $('video')[0];
     }
 
     function handleAjaxError(response) {

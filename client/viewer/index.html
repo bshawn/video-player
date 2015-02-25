@@ -13,10 +13,9 @@
         <!-- ko if: videos -->
                 <!-- ko if: selectedVideo -->
                 <div class="video-player col-lg-8 well text-center" data-bind="with: selectedVideo">
-                    <video width="640" height="480" controls data-bind="attr: { src: src }"></video>
+                    <video width="640" height="480" data-bind="attr: { src: src }"></video>
                 </div>
                 <!-- /ko -->
-            </div>
         <!-- /ko -->
         </div>
     </div>

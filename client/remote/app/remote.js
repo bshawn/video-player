@@ -58,7 +58,6 @@ var VideoService = (function () {
     return VideoService;
 } ());
 
-
 var ViewModel = (function () {
     'use strict';
 
@@ -83,7 +82,24 @@ var ViewModel = (function () {
     };
 
     ViewModel.prototype.select = function select(video) {
+        this.socket.emit('video selected', { videoId: video.id });
         loadVideoDetails.call(null, this, video.id);
+    };
+
+    ViewModel.prototype.play = function play() {
+        this.socket.emit('play video');
+    };
+
+    ViewModel.prototype.pause = function pause() {
+        this.socket.emit('pause video');
+    };
+
+    ViewModel.prototype.seek = function seek(delta) {
+        this.socket.emit('seek video', { delta: delta });
+    };
+
+    ViewModel.prototype.jump = function jump(time) {
+        this.socket.emit('jump video', { time: time });
     };
 
     function loadVideos(self) {

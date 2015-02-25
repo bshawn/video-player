@@ -12,6 +12,16 @@
         <div class="panel-body container">
         <!-- ko if: videos -->
             <div class="row">
+                <div class="controls col-lg-4">
+                    <button class="btn btn-lg btn-default" data-bind="click: seek(-10)">|<</button>
+                    <button class="btn btn-lg btn-primary" data-bind="click: play">></button>
+                    <button class="btn btn-lg btn-default" data-bind="click: pause">||</button>
+                    <button class="btn btn-lg btn-default" data-bind="click: seek(10)">>|</button>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="row">
                 <div class="video-list col-lg-4">
                     <div class="list-group" data-bind="foreach: videos">
                         <a class="list-group-item" href="#" data-bind="text: name,
