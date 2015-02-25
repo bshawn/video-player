@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Video Player Remote</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading" data-bind="text: applicationTitle"></div>
+        <div class="panel-body container">
+        <!-- ko if: videos -->
+            <div class="row">
+                <div class="video-list col-lg-4">
+                    <div class="list-group" data-bind="foreach: videos">
+                        <a class="list-group-item" href="#" data-bind="text: name,
+                                                                       click: $parent.select.bind($parent),
+                                                                       css: { active: $parent.isSelected($data) }"></a>
+                    </div>
+                </div>
+            </div>
+        <!-- /ko -->
+        </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app/remote.js"></script>
+</body>
+</html>
