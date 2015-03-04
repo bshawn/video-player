@@ -56,9 +56,16 @@ function configureRoutes(app) {
 }
 
 function parseRange(rangeHeader) {
-    var positions = rangeHeader.replace(/bytes=/, "").split("-"),
-        start = parseInt(positions[0], 10),
-        end = positions[1] ? parseInt(positions[1], 10) : 0;
+    var positions,
+        start,
+        end;
+
+    if(!rangeHeader) {
+        return;
+    }
+    positions = rangeHeader.replace(/bytes=/, "").split("-");
+    start = parseInt(positions[0], 10);
+    end = positions[1] ? parseInt(positions[1], 10) : 0;
 
     return { start: start, end: end };
 }
