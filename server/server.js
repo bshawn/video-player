@@ -4,7 +4,7 @@ var socketio = require('socket.io');
 var repo = require('./video-repository');
 
 // If this is a raspberry pi viewer.
-var viewerMode = process.args[3] || 'None';
+var viewerMode = process.argv[3] || 'None';
 if(viewerMode.toLowerCase() === 'omx') {
     var omxViewer = require('./omx-viewer')();
 }
