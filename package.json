@@ -1,0 +1,13 @@
+{
+    "name": "BS.TV",
+    "version": "0.0.1",
+    "private": false,
+    "scripts": {
+        "start": "node server/server.js"
+    },
+    "dependencies": {
+        "express": "3.1.1",
+        "socket.io":"0.9.14",
+        "omxcontrol":"*"
+    }
+}

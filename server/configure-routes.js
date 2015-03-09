@@ -1,9 +1,3 @@
-/*jshint*/
-/*global require*/
-/*global console*/
-/*global module*/
-/*global __dirname*/
-
 var path = require('path'),
     fs = require('fs'),
     repo = require('./video-repository'),

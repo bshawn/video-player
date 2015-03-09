@@ -1,6 +1,3 @@
-/*jshint*/
-/*global module*/
-
 function NotFoundError(message) {
     this.number = 404;
     this.name = 'NotFoundError';

@@ -1,9 +1,3 @@
-/*jshint*/
-/*global ko*/
-/*global $*/
-/*global console*/
-/*global toastr*/
-
 var apiUrl = 'api/videos';
 
 var Video = (function () {

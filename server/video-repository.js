@@ -1,9 +1,3 @@
-/*jshint*/
-/*global module*/
-/*global require*/
-/*global __dirname*/
-/*global console*/
-
 var path = require('path'),
     fs = require('fs'),
     errors = require('./errors/errors'),
@@ -26,12 +20,12 @@ repo.loadVideoList = function () {
 
 repo.loadVideoDetails = function (videoId) {
     var streamUrl = '/api/videos/' + videoId + '/stream';
-    
+
     // Loads detailed data for a particular video.
     switch(videoId) {
         case 1:
             return {
-                id: videoId, 
+                id: videoId,
                 name: 'Big Buck Bunny',
                 src: streamUrl
             };
@@ -56,33 +50,33 @@ repo.startVideoStream = function (videoId, res, range) {
     var filePath,
         start,
         end;
-        
+
     range = range || {};
     start = range.start;
     end = range.end;
-    
-    filePath = resolveFilePath(videoId);    
-    
+
+    filePath = repo.resolveFilePath(videoId);
+
     // Write the response header for this stream.
     fs.stat(filePath, function(err, stats) {
         var total, end, chunksize, stream;
-        
+
         if(err) {
             console.log(err);
             throw(new Error(errMsg.fileStatError + videoId + '. Details: ' + err.toString()));
         }
-        
+
         total = stats.size;
         end = end || total - 1;
         chunksize = (end - start) + 1;
-    
+
         res.writeHead(206, {
             'Content-Range': 'bytes ' + start + '-' + end + '/' + total,
             'Accept-Ranges': 'bytes',
             'Content-Length': chunksize,
             'Content-Type': 'video/mp4'
         });
-        
+
         fs.createReadStream(filePath, { start: start, end: end })
             .on('open', function() {
                 this.pipe(res);
@@ -92,7 +86,7 @@ repo.startVideoStream = function (videoId, res, range) {
     });
 };
 
-function resolveFilePath(videoId) {    
+repo.resolveFilePath = function resolveFilePath(videoId) {
     switch(videoId) {
         case 1:
             return path.resolve(__dirname, '../', 'videos/big_buck_bunny.mp4');
@@ -103,6 +97,6 @@ function resolveFilePath(videoId) {
         default:
             throw(new errors.NotFoundError(errMsg.filePathNotFound + videoId));
     }
-}
+};
 
 module.exports = repo;
