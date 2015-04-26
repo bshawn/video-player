@@ -1,13 +1,14 @@
 var socketio = require('socket.io');
 
 function configureSocketIo(server, repo) {
-    var io = socketio.listen(server);
+    var io = socketio.listen(server),
+        omxViewer = null;
 
     // If this is a raspberry pi viewer.
     var viewerMode = process.argv[2] ? process.argv[2].toLowerCase() : 'none';
     if(viewerMode === 'omx' || viewerMode == '-omx') {
         console.log('omxplayer viewer enabled');
-        var omxViewer = require('./omx-viewer');
+        omxViewer = require('./omx-viewer');
     }
 
     io.on('connection', function(socket) {
