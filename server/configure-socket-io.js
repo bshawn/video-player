@@ -7,7 +7,7 @@ function configureSocketIo(server, repo) {
     var viewerMode = process.argv[2] ? process.argv[2].toLowerCase() : 'none';
     if(viewerMode === 'omx' || viewerMode == '-omx') {
         console.log('omxplayer viewer enabled');
-        var omxViewer = require('./omx-viewer')();
+        var omxViewer = require('./omx-viewer');
     }
 
     io.on('connection', function(socket) {
