@@ -39,14 +39,6 @@ function configureRoutes(app) {
             console.log(err);
         }
     });
-
-    app.post('/api/videos', function(req, res) {
-
-    });
-
-    app.put('/api/videos/:id', function(req, res) {
-
-    });
 }
 
 function parseRange(rangeHeader) {

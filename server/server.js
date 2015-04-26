@@ -1,14 +1,7 @@
 var express = require('express');
 var app = express();
-var socketio = require('socket.io');
 var repo = require('./video-repository');
-
-// If this is a raspberry pi viewer.
-var viewerMode = process.argv[2].toLowerCase() || 'none';
-if(viewerMode === 'omx' || viewerMode == '-omx') {
-    console.log('omxplayer viewer enabled');
-    var omxViewer = require('./omx-viewer')();
-}
+var ipUtil = require('./ip-utility');
 
 // Serve the client directory as static files.
 app.use(express.static('client/default'));
@@ -20,55 +13,16 @@ require('./configure-routes')(app);
 
 var server = app.listen(process.env.PORT || 8080, process.env.IP || '0.0.0.0', function() {
     var host = server.address().address,
-        port = server.address().port;
+        port = server.address().port,
+        addys;
 
-    console.log('Server listening at http://%s:%s', host, port);
+    console.log('Server configured to listen at http://%s:%s', host, port);
+    console.log('IP addresses:');
+    addys = ipUtil.getIpAddresses();
+    for (var i = 0; i < addys.length; i++) {
+        console.log(addys[i].description);
+    }
 });
 
 // Socket IO for remote control.
-var io = socketio.listen(server);
-io.on('connection', function(socket) {
-    console.log('connection made');
-    socket.on('disconnect', function() {
-        console.log('user disconnected');
-    });
-    socket.on('video selected', function(args) {
-        console.log('video selected');
-        console.log(args);
-        var videoDetails = repo.loadVideoDetails(args.videoId);
-        io.emit('video selected', videoDetails);
-        if(omxViewer) {
-            omxViewer.videoSelected(videoDetails);
-        }
-    });
-    socket.on('play video', function(args) {
-        console.log('play video');
-        io.emit('play video');
-        if(omxViewer) {
-            omxViewer.play(args);
-        }
-    });
-    socket.on('pause video', function(args) {
-        console.log('pause video');
-        io.emit('pause video');
-        if(omxViewer) {
-            omxViewer.pause(args);
-        }
-    });
-    socket.on('seek video', function(args) {
-        console.log('seek video');
-        console.log(args);
-        io.emit('seek video', args);
-        if(omxViewer) {
-            omxViewer.seek(args);
-        }
-    });
-    socket.on('jump video', function(args) {
-        console.log('jump video');
-        console.log(args);
-        io.emit('jump video', args);
-        if(omxViewer) {
-            omxViewer.jump(args);
-        }
-    });
-});
+require('./configure-socket-io')(server, repo);

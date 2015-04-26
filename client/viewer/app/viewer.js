@@ -66,29 +66,33 @@ var ViewModel = (function () {
 
     ViewModel.prototype.initialize = function initialize() {
         this.socket.on('video selected', displayVideo.bind(null, this));
-        this.socket.on('play video', playVideo);
-        this.socket.on('pause video', pauseVideo);
-        this.socket.on('seek video', seekVideo);
+        this.socket.on('play video', playVideo.bind(null, this));
+        this.socket.on('pause video', pauseVideo.bind(null, this));
+        this.socket.on('seek video', seekVideo.bind(null, this));
     };
 
     function displayVideo(self, video) {
         self.selectedVideo(video);
+        self.socket.emit('video playing');
     }
 
-    function playVideo() {
+    function playVideo(self) {
         console.log('play video');
         getVideoTag().play();
+        self.socket.emit('video playing');
     }
 
-    function pauseVideo() {
+    function pauseVideo(self) {
         console.log('pause video');
         getVideoTag().pause();
+        self.socket.emit('video paused');
     }
 
-    function seekVideo(args) {
+    function seekVideo(self, args) {
         console.log('seek video');
         console.log(args);
         getVideoTag().currentTime += args.delta;
+        self.socket.emit('video seeked');
     }
 
     function getVideoTag() {

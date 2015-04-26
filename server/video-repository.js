@@ -55,7 +55,7 @@ repo.startVideoStream = function (videoId, res, range) {
     start = range.start;
     end = range.end;
 
-    filePath = repo.resolveFilePath(videoId);
+    filePath = resolveFilePath(videoId);
 
     // Write the response header for this stream.
     fs.stat(filePath, function(err, stats) {
@@ -86,7 +86,7 @@ repo.startVideoStream = function (videoId, res, range) {
     });
 };
 
-repo.resolveFilePath = function resolveFilePath(videoId) {
+function resolveFilePath(videoId) {
     switch(videoId) {
         case 1:
             return path.resolve(__dirname, '../', 'videos/big_buck_bunny.mp4');
@@ -97,6 +97,6 @@ repo.resolveFilePath = function resolveFilePath(videoId) {
         default:
             throw(new errors.NotFoundError(errMsg.filePathNotFound + videoId));
     }
-};
+}
 
 module.exports = repo;

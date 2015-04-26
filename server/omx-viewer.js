@@ -1,26 +1,30 @@
 var omx = require('omxcontrol'),
-    repo = require('./video-repository'),
     viewer = {};
 
 viewer.videoSelected = function(videoDetails) {
     var id = videoDetails.id;
-    omx.start(repo.resolveFilePath(id));
+    omx.quit();
+    omx.start('http://localhost:8080' + videoDetails.src);
 };
 
 viewer.play = function(args) {
-    omx.sendKey('.');
+    omx.play();
 };
 
 viewer.pause = function(args) {
-    omx.sendKey('p');
+    omx.pause();
+};
+
+viewer.stop = function(args) {
+    omx.quit();
 };
 
 viewer.seek = function(args) {
     // TODO: Add support for delta (if possible)
     if(args.delta > 0) {
-        omx.sendKey("$'\\x1b\\x5b\\x43'");
+        omx.forward();
     } else {
-        omx.sendKey("$'\\x1b\\x5b\\x44'");
+        omx.backward();
     }
 };
 

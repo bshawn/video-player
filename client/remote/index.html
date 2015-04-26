@@ -14,8 +14,8 @@
             <div class="row">
                 <div class="controls col-lg-4">
                     <button class="btn btn-lg btn-default" data-bind="click: seek(-10)">|<</button>
-                    <button class="btn btn-lg btn-primary" data-bind="click: play">></button>
-                    <button class="btn btn-lg btn-default" data-bind="click: pause">||</button>
+                    <button class="btn btn-lg btn-primary" data-bind="click: playPause, text: playPauseText"></button>
+                    <button class="btn btn-lg btn-default" data-bind="click: stop">[]</button>
                     <button class="btn btn-lg btn-default" data-bind="click: seek(10)">>|</button>
                 </div>
             </div>

@@ -59,13 +59,20 @@ var ViewModel = (function () {
         this.service = new VideoService();
         this.socket = io();
 
+        this.playPauseText = ko.observable('>');
         this.applicationTitle = ko.observable('Video Player Remote');
         this.videos = ko.observableArray();
         this.selectedVideo = ko.observable();
     }
 
     ViewModel.prototype.initialize = function initialize() {
-        loadVideos.call(null, this);
+        loadVideos(this);
+
+        this.socket.on('video playing', setPauseIcon.bind(null, this));
+        this.socket.on('video paused', setPlayIcon.bind(null, this));
+        this.socket.on('video stopped', function() { console.log('stopped'); });
+        this.socket.on('video seeked', function() { console.log('seeked'); });
+        this.socket.on('video jumped', function() { console.log('jumped'); });
     };
 
     ViewModel.prototype.isSelected = function isSelected(video) {
@@ -76,8 +83,16 @@ var ViewModel = (function () {
     };
 
     ViewModel.prototype.select = function select(video) {
-        this.socket.emit('video selected', { videoId: video.id });
-        loadVideoDetails.call(null, this, video.id);
+        this.socket.emit('select video', { videoId: video.id });
+        loadVideoDetails(this, video.id);
+    };
+
+    ViewModel.prototype.playPause = function playPause() {
+        if(this.playPauseText() === '>') {
+            this.play();
+        } else {
+            this.pause();
+        }
     };
 
     ViewModel.prototype.play = function play() {
@@ -86,6 +101,10 @@ var ViewModel = (function () {
 
     ViewModel.prototype.pause = function pause() {
         this.socket.emit('pause video');
+    };
+
+    ViewModel.prototype.stop = function stop() {
+        this.socket.emit('stop video');
     };
 
     ViewModel.prototype.seek = function seek(delta) {
@@ -115,6 +134,14 @@ var ViewModel = (function () {
 
     function get_done(self, video) {
         self.selectedVideo(video);
+    }
+
+    function setPauseIcon(self) {
+        self.playPauseText('||');
+    }
+
+    function setPlayIcon(self) {
+        self.playPauseText('>');
     }
 
     function handleAjaxError(response) {
