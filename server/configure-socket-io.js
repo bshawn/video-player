@@ -24,7 +24,7 @@ function configureSocketIo(server, repo) {
             socket.broadcast.emit('video selected', videoDetails);
             if(omxViewer) {
                 omxViewer.videoSelected(videoDetails);
-                socket.broadcast.emit('video playing');
+                io.emit('video playing');
             }
             console.log('video selected');
         });
@@ -33,7 +33,7 @@ function configureSocketIo(server, repo) {
             socket.broadcast.emit('play video');
             if(omxViewer) {
                 omxViewer.play(args);
-                socket.broadcast.emit('video playing');
+                io.emit('video playing');
             }
         });
         socket.on('video playing', function(args) {
@@ -45,7 +45,7 @@ function configureSocketIo(server, repo) {
             socket.broadcast.emit('pause video');
             if(omxViewer) {
                 omxViewer.pause(args);
-                socket.broadcast.emit('video paused');
+                io.emit('video paused');
             }
         });
         socket.on('video paused', function(args) {
@@ -57,7 +57,7 @@ function configureSocketIo(server, repo) {
             socket.broadcast.emit('stop video');
             if(omxViewer) {
                 omxViewer.stop(args);
-                socket.broadcast.emit('video stopped');
+                io.emit('video stopped');
             }
         });
         socket.on('video stopped', function(args) {
@@ -70,7 +70,7 @@ function configureSocketIo(server, repo) {
             socket.broadcast.emit('seek video', args);
             if(omxViewer) {
                 omxViewer.seek(args);
-                socket.broadcast.emit('video seeked');
+                io.emit('video seeked');
             }
         });
         socket.on('video seeked', function(args) {
@@ -83,7 +83,7 @@ function configureSocketIo(server, repo) {
             socket.broadcast.emit('jump video', args);
             if(omxViewer) {
                 omxViewer.jump(args);
-                socket.broadcast.emit('video jumped');
+                io.emit('video jumped');
             }
         });
         socket.on('video jumped', function(args) {

@@ -70,7 +70,7 @@ var ViewModel = (function () {
 
         this.socket.on('video playing', setPauseIcon.bind(null, this));
         this.socket.on('video paused', setPlayIcon.bind(null, this));
-        this.socket.on('video stopped', function() { console.log('stopped'); });
+        this.socket.on('video stopped', stopped.bind(null, this));
         this.socket.on('video seeked', function() { console.log('seeked'); });
         this.socket.on('video jumped', function() { console.log('jumped'); });
     };
@@ -123,7 +123,6 @@ var ViewModel = (function () {
 
     function getAll_done(self, videos) {
         self.videos(videos);
-        self.select(self.videos()[0]);
     }
 
     function loadVideoDetails(self, videoId) {
@@ -134,6 +133,11 @@ var ViewModel = (function () {
 
     function get_done(self, video) {
         self.selectedVideo(video);
+    }
+
+    function stopped(self) {
+        setPlayIcon(self);
+        self.selectedVideo(null);
     }
 
     function setPauseIcon(self) {
