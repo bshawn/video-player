@@ -5,6 +5,7 @@ var ipUtil = require('./ip-utility');
 
 // Serve the client directory as static files.
 app.use(express.static('client/default'));
+app.use('/lib', express.static('client/lib'));
 app.use('/remote', express.static('client/remote'));
 app.use('/viewer', express.static('client/viewer'));
 
