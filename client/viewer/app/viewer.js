@@ -99,9 +99,9 @@ var ViewModel = (function () {
         return $('video')[0];
     }
 
-    function handleAjaxError(response) {
-        toastr.error(response.responseText);
-    }
+    // function handleAjaxError(response) {
+    //     toastr.error(response.responseText);
+    // }
 
     return ViewModel;
 } ());

@@ -3,7 +3,7 @@ var ifaces = os.networkInterfaces();
 var ip = {};
 
 ip.getIpAddresses = function() {
-    addresses = [];
+    var addresses = [];
     //http://stackoverflow.com/a/8440736
 
     Object.keys(ifaces).forEach(function (ifname) {

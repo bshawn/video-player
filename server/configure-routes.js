@@ -1,7 +1,4 @@
-var path = require('path'),
-    fs = require('fs'),
-    repo = require('./video-repository'),
-    errors = require('./errors/errors');
+var repo = require('./video-repository');
 
 function configureRoutes(app) {
     app.get('/api/videos', function(req, res) {

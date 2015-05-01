@@ -36,7 +36,7 @@ function configureSocketIo(server, repo) {
                 io.emit('video playing');
             }
         });
-        socket.on('video playing', function(args) {
+        socket.on('video playing', function() {
             console.log('video playing');
             socket.broadcast.emit('video playing');
         });
@@ -48,7 +48,7 @@ function configureSocketIo(server, repo) {
                 io.emit('video paused');
             }
         });
-        socket.on('video paused', function(args) {
+        socket.on('video paused', function() {
             console.log('video paused');
             socket.broadcast.emit('video paused');
         });
@@ -60,7 +60,7 @@ function configureSocketIo(server, repo) {
                 io.emit('video stopped');
             }
         });
-        socket.on('video stopped', function(args) {
+        socket.on('video stopped', function() {
             console.log('video stopped');
             socket.broadcast.emit('video stopped');
         });
@@ -73,7 +73,7 @@ function configureSocketIo(server, repo) {
                 io.emit('video seeked');
             }
         });
-        socket.on('video seeked', function(args) {
+        socket.on('video seeked', function() {
             console.log('video seeked');
             socket.broadcast.emit('video seeked');
         });
@@ -86,7 +86,7 @@ function configureSocketIo(server, repo) {
                 io.emit('video jumped');
             }
         });
-        socket.on('video jumped', function(args) {
+        socket.on('video jumped', function() {
             console.log('video jumped');
             socket.broadcast.emit('video jumped');
         });

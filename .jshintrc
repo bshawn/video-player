@@ -1,5 +1,15 @@
 {
   "undef": true,
   "unused": true,
-  "predef": [ "MY_GLOBAL" ]
+  "predef": [
+      "require",
+      "console",
+      "__dirname",
+      "module",
+      "process",
+      "$",
+      "ko",
+      "toastr",
+      "io"
+  ]
 }

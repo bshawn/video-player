@@ -59,7 +59,7 @@ repo.startVideoStream = function (videoId, res, range) {
 
     // Write the response header for this stream.
     fs.stat(filePath, function(err, stats) {
-        var total, end, chunksize, stream;
+        var total, end, chunksize;
 
         if(err) {
             console.log(err);

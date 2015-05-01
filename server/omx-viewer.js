@@ -2,20 +2,19 @@ var omx = require('omxcontrol'),
     viewer = {};
 
 viewer.videoSelected = function(videoDetails) {
-    var id = videoDetails.id;
     omx.quit();
     omx.start('http://localhost:8080' + videoDetails.src);
 };
 
-viewer.play = function(args) {
+viewer.play = function() {
     omx.play();
 };
 
-viewer.pause = function(args) {
+viewer.pause = function() {
     omx.pause();
 };
 
-viewer.stop = function(args) {
+viewer.stop = function() {
     omx.quit();
 };
 
@@ -28,7 +27,7 @@ viewer.seek = function(args) {
     }
 };
 
-viewer.jump = function(args) {
+viewer.jump = function() {
     // TODO: Add jump functionality (if possible)
 };
 
