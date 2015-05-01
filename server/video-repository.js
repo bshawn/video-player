@@ -89,11 +89,11 @@ repo.startVideoStream = function (videoId, res, range) {
 function resolveFilePath(videoId) {
     switch(videoId) {
         case 1:
-            return path.resolve(__dirname, '../', 'videos/big_buck_bunny.mp4');
+            return path.resolve(__dirname, 'videos/', 'big_buck_bunny.mp4');
         case 2:
-            return path.resolve(__dirname, '../', 'videos/Die leeutemmer.mp4');
+            return path.resolve(__dirname, 'videos/', 'Die leeutemmer.mp4');
         case 3:
-            return path.resolve(__dirname, '../', 'videos/Incredible Mara Leopard Attack21.mp4');
+            return path.resolve(__dirname, 'videos/', 'Incredible Mara Leopard Attack21.mp4');
         default:
             throw(new errors.NotFoundError(errMsg.filePathNotFound + videoId));
     }
