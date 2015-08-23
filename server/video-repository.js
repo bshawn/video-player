@@ -1,6 +1,8 @@
 var path = require('path'),
     fs = require('fs'),
+    _ = require('lodash'),
     errors = require('./errors/errors'),
+    videos = require('./videos/videos.json'),
     repo = {};
 
 var errMsg = {
@@ -11,11 +13,22 @@ var errMsg = {
 
 repo.loadVideoList = function () {
     // Loads summary data for all videos in our list.
-    return [
-        { id: 1, name: 'Big Buck Bunny' },
-        { id: 2, name: 'Lions' },
-        { id: 3, name: 'Incredible Mara Leopard Attack' }
-    ];
+    var summaryList;
+
+    try {
+        summaryList = _.map(videos.list, function(vid) {
+            return {
+                id: vid.id,
+                name: vid.name
+            };
+        });
+    } catch(err) {
+        console.log(err);
+        console.log(err.stack);
+        throw(new errors.ListLoadError());
+    }
+
+    return summaryList;
 };
 
 repo.loadVideoDetails = function (videoId) {

@@ -1,0 +1,19 @@
+{
+    "list": [
+        {
+            "id": "1",
+            "name": "Big Buck Bunny",
+            "filepath": "big_buck_bunny.mp4"
+        },
+        {
+            "id": "2",
+            "name": "Lions",
+            "filepath": "Die leeutemmer.mp4"
+        },
+        {
+            "id": "3",
+            "name": "Incredible Mara Leopard Attack",
+            "filepath": "Incredible Mara Leopard Attack21.mp4"
+        }
+    ]
+}

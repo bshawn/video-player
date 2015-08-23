@@ -1,5 +1,7 @@
 var NotFoundError = require('./not-found-error');
+var ListLoadError = require('./list-load-error');
 
 module.exports = {
-  NotFoundError: NotFoundError
+  NotFoundError: NotFoundError,
+  ListLoadError: ListLoadError
 };
