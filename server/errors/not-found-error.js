@@ -6,6 +6,4 @@ function NotFoundError(message) {
 NotFoundError.prototype = Object.create(Error.prototype);
 NotFoundError.prototype.constructor = NotFoundError;
 
-NotFoundError.prototype = new Error();
-
 module.exports = NotFoundError;

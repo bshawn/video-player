@@ -6,6 +6,4 @@ function ListLoadError(message) {
 ListLoadError.prototype = Object.create(Error.prototype);
 ListLoadError.prototype.constructor = ListLoadError;
 
-ListLoadError.prototype = new Error();
-
 module.exports = ListLoadError;

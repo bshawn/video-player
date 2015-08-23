@@ -16,48 +16,46 @@ repo.loadVideoList = function () {
     var summaryList;
 
     try {
-        summaryList = _.map(videos.list, function(vid) {
-            return {
-                id: vid.id,
-                name: vid.name
-            };
-        });
+        summaryList = getVideoSummaryList();
     } catch(err) {
-        console.log(err);
-        console.log(err.stack);
         throw(new errors.ListLoadError());
     }
 
     return summaryList;
 };
 
+function getVideoSummaryList() {
+    return _.map(videos.list, mapVideoToVideoSummary);
+}
+
+function mapVideoToVideoSummary(vid) {
+    return {
+        id: vid.id,
+        name: vid.name
+    };
+}
+
 repo.loadVideoDetails = function (videoId) {
     var streamUrl = '/api/videos/' + videoId + '/stream';
+    var vid = {};
 
     // Loads detailed data for a particular video.
-    switch(videoId) {
-        case 1:
-            return {
-                id: videoId,
-                name: 'Big Buck Bunny',
-                src: streamUrl
-            };
-        case 2:
-            return {
-                id: videoId,
-                name: 'Lions',
-                src: streamUrl
-            };
-        case 3:
-            return {
-                id: videoId,
-                name: 'Incredible Mara Leopard Attack',
-                src: streamUrl
-            };
-        default:
-            throw(new errors.NotFoundError(errMsg.videoDetailsNotFound + videoId));
+    vid = getVideoById(videoId);
+
+    if(!vid) {
+        throw(new errors.NotFoundError(errMsg.videoDetailsNotFound + videoId));
     }
+
+    return {
+        id: videoId,
+        name: vid.name,
+        src: streamUrl
+    };
 };
+
+function getVideoById (videoId) {
+    return _.findWhere(videos.list, { id: videoId });
+}
 
 repo.startVideoStream = function (videoId, res, range) {
     var filePath,
@@ -100,16 +98,11 @@ repo.startVideoStream = function (videoId, res, range) {
 };
 
 function resolveFilePath(videoId) {
-    switch(videoId) {
-        case 1:
-            return path.resolve(__dirname, 'videos/', 'big_buck_bunny.mp4');
-        case 2:
-            return path.resolve(__dirname, 'videos/', 'Die leeutemmer.mp4');
-        case 3:
-            return path.resolve(__dirname, 'videos/', 'Incredible Mara Leopard Attack21.mp4');
-        default:
-            throw(new errors.NotFoundError(errMsg.filePathNotFound + videoId));
+    var vid = getVideoById(videoId);
+    if(!vid) {
+        throw(new errors.NotFoundError(errMsg.videoDetailsNotFound + videoId));
     }
+
 }
 
 module.exports = repo;
