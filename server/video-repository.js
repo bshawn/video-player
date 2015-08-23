@@ -103,6 +103,7 @@ function resolveFilePath(videoId) {
         throw(new errors.NotFoundError(errMsg.videoDetailsNotFound + videoId));
     }
 
+    return path.resolve(__dirname, 'videos/', vid.filePath);
 }
 
 module.exports = repo;
