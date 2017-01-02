@@ -1,0 +1,14 @@
+{
+  "name": "bs.tv",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.55"
+  }
+}
