@@ -5,7 +5,7 @@ var app = express();
 require('./configure-routes')(app);
 
 // Serve static files from app and movies directories.
-app.use('/client', express.static('client'));
+app.use('/client', express.static('web-client'));
 app.use('/movies', express.static('movies'));
 
 // Handle 404s.
