@@ -1,5 +1,5 @@
 var ViewModel = (function () {
-    "use strict";
+    'use strict';
 
     function ViewModel (){
         this.applicationTitle = ko.observable('Video Player');

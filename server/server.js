@@ -5,12 +5,12 @@ var app = express();
 require('./configure-routes')(app);
 
 // Serve static files from app and movies directories.
-app.use(express.static('../', 'app'));
-app.use(express.static('../', 'movies'));
+app.use('/client', express.static('client'));
+app.use('/movies', express.static('movies'));
 
 // Handle 404s.
 app.use(function(req, res, next) {
-   res.send(404, 'Unable to locate requested resource');
+   res.status(404).send('Unable to locate requested resource');
    
    // By not calling next(), we are terminating the pipeline.
 });

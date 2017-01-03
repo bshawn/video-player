@@ -1,6 +1,6 @@
 function configureRoutes(app) {
     app.get('/', function(req, res) {
-       res.sendFile('index.html', { root: '../' });
+       res.sendFile('index.html', { root: '.' });
     });
 }
 
