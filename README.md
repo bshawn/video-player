@@ -14,6 +14,7 @@ I created this as a learning tool for the following technologies:
 
 - Raspberry Pi
 - Node.js
+- Express.js
 - Socket.io
 - Web-based video playback
 
